@@ -38,26 +38,9 @@ tasks.withType(JavaCompile) {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-tasks.withType(Test) {
-    systemProperties(System.getProperties())
-    useJUnitPlatform()
-
-    testLogging {
-        lifecycle {
-//            events "started", "failed"
-            events "started", "skipped", "failed", "standard_error", "standard_out"
-            exceptionFormat "short"
-        }
-    }
-}
-
-task smoke(type: Test) {
-    useJUnitPlatform {
-        includeTags 'smoke'
-    }
-}
 
 task properties_tests(type: Test) {
+    systemProperties(System.getProperties())
     systemProperty("browserSize", System.getProperty("browserSize", "400x400"))
 //    systemProperty("environment", System.getProperty("environment", "stage"))
 
